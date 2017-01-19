@@ -74,10 +74,11 @@ import org.eclipse.jdt.ui.cleanup.CleanUpOptions;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.JavaPluginImages;
 import org.eclipse.jdt.internal.ui.javaeditor.saveparticipant.AbstractSaveParticipantPreferenceConfiguration;
-import org.eclipse.jdt.internal.ui.text.correction.ASTResolving;
 import org.eclipse.jdt.internal.ui.text.correction.CorrectionMessages;
 import org.eclipse.jdt.internal.ui.text.correction.ModifierCorrectionSubProcessor;
-import org.eclipse.jdt.internal.ui.viewsupport.BasicElementLabels;
+
+import org.eclipse.jdt.internal.core.manipulation.dom.ASTResolving;
+import org.eclipse.jdt.internal.core.manipulation.util.BasicElementLabels;
 
 /**
  * Proposals for 'Assign to variable' quick assist
@@ -104,11 +105,8 @@ public class AssignToVariableAssistProposal extends LinkedCorrectionProposal {
 		fVariableKind= variableKind;
 		fNodesToAssign= new ArrayList<>();
 		fNodesToAssign.add(node);
-		if (typeBinding.isWildcardType()) {
-			typeBinding= ASTResolving.normalizeWildcardType(typeBinding, true, node.getAST());
-		}
 
-		fTypeBinding= typeBinding;
+		fTypeBinding= Bindings.normalizeForDeclarationUse(typeBinding, node.getAST());
 		if (variableKind == LOCAL) {
 			setDisplayName(CorrectionMessages.AssignToVariableAssistProposal_assigntolocal_description);
 			setImage(JavaPluginImages.get(JavaPluginImages.IMG_CORRECTION_LOCAL));

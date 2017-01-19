@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2000, 2011 IBM Corporation and others.
+ * Copyright (c) 2000, 2016 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -58,10 +58,11 @@ import org.eclipse.jdt.core.compiler.InvalidInputException;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
+
 import org.eclipse.jdt.ui.text.IJavaPartitions;
 
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.javaeditor.ASTProvider;
+import org.eclipse.jdt.internal.corext.dom.IASTSharedValues;
 
 
 public class JavaStructureCreator extends StructureCreator {
@@ -102,10 +103,11 @@ public class JavaStructureCreator extends StructureCreator {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
-		public Object getAdapter(Class adapter) {
+		public <T> T getAdapter(Class<T> adapter) {
 			if (adapter == ISharedDocumentAdapter.class) {
-				return fAdapter;
+				return (T) fAdapter;
 			}
 			return super.getAdapter(adapter);
 		}
@@ -274,7 +276,7 @@ public class JavaStructureCreator extends StructureCreator {
 				contents.getChars(0, n, buffer, 0);
 			}
 
-			ASTParser parser= ASTParser.newParser(ASTProvider.SHARED_AST_LEVEL);
+			ASTParser parser= ASTParser.newParser(IASTSharedValues.SHARED_AST_LEVEL);
 			if (compilerOptions != null)
 				parser.setCompilerOptions(compilerOptions);
 			parser.setSource(buffer);

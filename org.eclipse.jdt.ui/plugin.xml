@@ -1057,12 +1057,21 @@
          </description>
       </fontDefinition>
       <colorDefinition
-            label="%JavadocViewBackgroundColor.label"
+            label="%JavadocBackgroundColor.label"
             categoryId="org.eclipse.jdt.ui.presentation"
-            value="COLOR_INFO_BACKGROUND"
-            id="org.eclipse.jdt.ui.JavadocView.backgroundColor">
+            defaultsTo="org.eclipse.ui.workbench.HOVER_BACKGROUND"
+            id="org.eclipse.jdt.ui.Javadoc.backgroundColor">
          <description>
-            %JavadocViewBackgroundColor.description
+            %JavadocBackgroundColor.description
+         </description>
+      </colorDefinition>
+      <colorDefinition
+            label="%JavadocForegroundColor.label"
+            categoryId="org.eclipse.jdt.ui.presentation"
+            defaultsTo="org.eclipse.ui.workbench.HOVER_FOREGROUND"
+            id="org.eclipse.jdt.ui.Javadoc.foregroundColor">
+         <description>
+            %JavadocForegroundColor.description
          </description>
       </colorDefinition>
       <colorDefinition
@@ -4069,7 +4078,14 @@
             categoryId="org.eclipse.ui.category.project"
             id="org.eclipse.jdt.ui.generate.javadoc">
       </command>
-      
+      <command
+            name="%ActionDefinition.indexRebuild.name"
+            description="%ActionDefinition.indexRebuild.description"
+            defaultHandler="org.eclipse.jdt.internal.ui.commands.RebuildIndexHandler"
+            categoryId="org.eclipse.ui.category.project"
+            id="org.eclipse.jdt.ui.index.rebuild">
+      </command>
+     
 <!-- search -->
       <command
             name="%ActionDefinition.referencesInWorkspace.name"
@@ -5280,6 +5296,14 @@
             description="%HideSyntheticMembers.description"
             class="org.eclipse.jdt.internal.ui.filters.SyntheticMembersFilter"
             id="org.eclipse.jdt.internal.ui.text.QuickOutline.SyntheticMembersFilter">
+      </filter>
+      <filter
+            targetId="org.eclipse.jdt.internal.ui.text.QuickOutline"
+            name="%HideJavaLangObjectMembersFilter.label"
+            enabled="false"
+            description="%HideJavaLangObjectMembersFilter.description"
+            class="org.eclipse.jdt.internal.ui.filters.JavaLangObjectMembersFilter"
+            id="org.eclipse.jdt.internal.ui.text.QuickOutline.JavaLangObjectMembersFilter">
       </filter>
 <!-- Quick Hierarchy -->
       <filter
